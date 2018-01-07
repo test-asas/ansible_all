@@ -1,0 +1,8 @@
+---
+- name: プロビジョニングサーバの構築
+  hosts: localhost
+  become: true
+  gather_facts: no
+  roles:
+    - role: local_provisioning 
+

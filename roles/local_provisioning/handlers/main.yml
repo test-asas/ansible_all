@@ -1,0 +1,13 @@
+---
+- name: dhcp_reload
+  service:
+    name: dhcpd
+    state: reloaded
+
+- name: fttp_reload
+  service:
+    name: "{{ item }}" #with_itemsを参照する
+    state: reloaded
+  with_items: #itemに渡す変数
+    - xinetd
+    - tftp

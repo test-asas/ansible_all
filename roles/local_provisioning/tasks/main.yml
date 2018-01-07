@@ -1,0 +1,57 @@
+---
+- name: tftp_install
+  yum:
+    name: "{{ item }}" #with_itemsを参照する
+    state: present 
+  with_items: #itemに渡す変数
+    - xinetd
+    - tftp-server
+
+- name: dhcp_install
+  yum:
+    name: dhcp
+    state: present 
+
+- name: dhcp.conf
+  template: #jinjaテンプレートを使う
+    src: dhcp.j2 #参照するテンプレートファイル名
+    dest: /etc/dhcp/dhcpd.conf #そのテンプレートファイルを適用するところ
+
+- name: dhcp_start&enable
+  service:
+    name: dhcpd
+    state: started
+    enabled: true
+
+- name: tftp.conf
+  template:
+    src: tftp.j2
+    dest: /etc/xinetd.d/tftp
+
+- name: router_config
+  template:
+    src: ssh_config.j2
+    dest: /var/lib/tftpboot/ssh-config
+
+- name: tftp_start&enable
+  service:
+    name: "{{ item }}" #with_itemsを参照する
+    state: started
+    enabled: true
+  with_items: #itemに渡す変数
+    - xinetd
+    - tftp
+
+- name: chmod
+  file:
+    path: /var/lib/tftpboot
+    mode: 0777
+
+- firewalld:
+    zone: public
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  with_items:
+    - dhcp
+    - tftp

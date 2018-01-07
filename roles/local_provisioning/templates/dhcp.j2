@@ -1,0 +1,11 @@
+host R1{
+ hardware ethernet 00:0c:29:fa:6d:c7;
+ fixed-address 10.0.0.100;
+ option subnet-mask 255.255.255.0;
+ option tftp-server-name "10.0.0.200";
+ filename "ssh-config";
+}
+
+subnet 10.0.0.0 netmask 255.255.255.0{
+ range 10.0.0.200 10.0.0.254;
+}
