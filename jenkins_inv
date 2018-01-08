@@ -3,6 +3,6 @@
 
 [jenkins_host:vars] 
 ansible_ssh_user=root 
-ansible_ssh_pass=aaki0092 
+ansible_ssh_pass=****** 
 
  
