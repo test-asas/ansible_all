@@ -64,6 +64,7 @@
     service: "{{ item }}"
     permanent: true
     state: enabled
+    immediate: yes
   with_items:
     - dhcp
     - tftp
