@@ -1,0 +1,7 @@
+--- 
+- name: jenkinsサーバの構築 
+  hosts: jenkins_host
+  become: true 
+  gather_facts: no 
+  roles: 
+    - role: jenkins

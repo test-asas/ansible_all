@@ -1,0 +1,27 @@
+---
+- name: install_jdk
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: installed
+
+- name: yum_repo
+  get_url: 
+    url: http://pkg.jenkins-ci.org/redhat/jenkins.repo 
+    dest: /etc/yum.repos.d/jenkins.repo 
+    mode: 0644
+
+- name: import_rpm_key
+  rpm_key:
+    key: http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+    state: present
+
+- name: install_jenkins
+  yum: 
+    name: jenkins
+    state: installed
+
+- name: jenkins_start
+  service: 
+    name: jenkins
+    state: started
+    enabled: true

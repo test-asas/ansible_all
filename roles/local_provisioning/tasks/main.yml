@@ -10,14 +10,6 @@
     state: restarted
   changed_when: False 
 
-- name: tftp_install
-  yum:
-    name: "{{ item }}" #with_itemsを参照する
-    state: present 
-  with_items: #itemに渡す変数
-    - xinetd
-    - tftp-server
-
 - name: dhcp_install
   yum:
     name: dhcp
@@ -33,6 +25,14 @@
     name: dhcpd
     state: started
     enabled: true
+
+- name: tftp_install
+  yum:
+    name: "{{ item }}" #with_itemsを参照する
+    state: present
+  with_items: #itemに渡す変数
+    - xinetd
+    - tftp-server
 
 - name: tftp.conf
   template:
