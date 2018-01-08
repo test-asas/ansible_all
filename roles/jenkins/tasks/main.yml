@@ -25,3 +25,11 @@
     name: jenkins
     state: started
     enabled: true
+
+- name: port-open
+  firewalld:
+    zone: public
+    port: 8080/tcp
+    permanent: true
+    state: enabled
+
