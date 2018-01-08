@@ -1,4 +1,15 @@
 ---
+- name: network-interface
+  template:
+    src: if.j2
+    dest: /etc/sysconfig/network-scripts/ifcfg-ens192
+
+- name: network_restart
+  service:
+    name: network
+    state: restarted
+  changed_when: False 
+
 - name: tftp_install
   yum:
     name: "{{ item }}" #with_itemsを参照する
@@ -44,10 +55,11 @@
 
 - name: chmod
   file:
-    path: /var/lib/tftpboot
+    path: /var/lib/tftpboot/
     mode: 0777
 
-- firewalld:
+- name: port-open
+  firewalld:
     zone: public
     service: "{{ item }}"
     permanent: true
@@ -55,3 +67,4 @@
   with_items:
     - dhcp
     - tftp
+
