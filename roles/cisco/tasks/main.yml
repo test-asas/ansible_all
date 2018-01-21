@@ -23,13 +23,6 @@
   changed_when: False #no shutdownを冪等性で判断できない時用
 
 
-#- name: 事前show_run_allを実行します
-#  ios_command:
-#    commands:
-#      - show run all
-#    provider: "{{ cli }}"
-#    timeout: 60
-
 - name: 対象インターフェースを開放します
   ios_config:
     parents:
@@ -41,8 +34,9 @@
 
 - name: configを投入します
   ios_config:
-    src: config.j2
+    src: RT-A.j2
     provider: "{{ cli }}"
+    timeout: 120
 
 - name: configを保存します
   ios_config:
