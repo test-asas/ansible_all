@@ -121,7 +121,7 @@ def inv_func(comp_va):
 
 
     if 'zabbix.txt' not in directory:
-        f = open('zabbix.txt', 'w')  # invというファイル名でカレントディレクトリに保存
+        f = open('/etc/ansible/python/zabbix.txt', 'w')  # invというファイル名でカレントディレクトリに保存
         f.write(str(comp_va))
         f.close()
         nw_seg = ipaddress.ip_network('10.0.0.0/25')
